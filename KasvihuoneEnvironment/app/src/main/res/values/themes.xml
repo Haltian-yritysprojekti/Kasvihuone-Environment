@@ -3,11 +3,22 @@
 
     <style name="Base.Theme.KasvihuoneEnvironment" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/brand1</item>
         <item name="colorSecondary">@color/brand2</item>
+
+        <!-- Customize action bar color -->
+        <item name="android:colorPrimary">@color/brand2</item>
+        <item name="android:colorPrimaryDark">@color/brand2</item>
+        <item name="android:colorAccent">@color/brand1</item>
+
+        <!-- Customize action bar text color -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="Theme.KasvihuoneEnvironment" parent="Base.Theme.KasvihuoneEnvironment" />
+    <style name="Theme.KasvihuoneEnvironment" parent="Base.Theme.KasvihuoneEnvironment"
+
+
+        />
 
 </resources>
