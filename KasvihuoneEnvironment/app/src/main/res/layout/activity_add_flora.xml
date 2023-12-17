@@ -132,14 +132,14 @@
         app:srcCompat="@drawable/icons8_plus_100" />
 
     <ImageView
-        android:id="@+id/addPicture"
+        android:id="@+id/addChanges"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addFlora"
         app:layout_constraintStart_toEndOf="@+id/backButton"
-        app:srcCompat="@drawable/icons8_camera_100" />
+        app:srcCompat="@drawable/icons8_flowerupdate_100" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,10 +61,14 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         clickableLayout3.setOnClickListener{
-
+            val tempIntent = Intent(this, TempOT::class.java)
+            startActivity(tempIntent)
+            finish()
         }
         clickableLayout4.setOnClickListener{
-
+            val humdIntent = Intent(this, HumdOT::class.java)
+            startActivity(humdIntent)
+            finish()
         }
         clickableLayout5.setOnClickListener{
 
@@ -100,8 +104,6 @@ class MainActivity : AppCompatActivity() {
                 // Handle errors here
             }
         )
-
-        // Add the request to the RequestQueue
         requestQueue.add(jsonArrayRequest)
     }
 
@@ -120,7 +122,6 @@ class MainActivity : AppCompatActivity() {
             )
             backendDataList.add(backendData)
         }
-
         return backendDataList
     }
 

@@ -1,5 +1,6 @@
 package com.example.kasvihuone_environment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -67,10 +69,16 @@ class FloraActivity : AppCompatActivity() {
             cycleToNextPlant()
         }
 
+        deletePlant.setOnClickListener {
+            val selectedPlant = plantList[currentPlantIndex]
+            showDeleteConfirmationDialog(selectedPlant.id)
+        }
+
+
 
         backButton.setOnClickListener{
-            val MainActivityIntent = Intent(this, MainActivity::class.java)
-            startActivity(MainActivityIntent)
+            val mainActivityIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainActivityIntent)
         }
 
         addFlora.setOnClickListener{
@@ -92,7 +100,6 @@ class FloraActivity : AppCompatActivity() {
                 error.printStackTrace()
             }
         )
-
         requestQueue.add(jsonArrayRequest)
     }
 
@@ -118,16 +125,14 @@ class FloraActivity : AppCompatActivity() {
 
     private fun cycleToNextPlant() {
         if (plantList.isNotEmpty()) {
-            currentPlantIndex = (currentPlantIndex % plantList.size) + 1
-            showPlantData(currentPlantIndex - 1)
+            currentPlantIndex = (currentPlantIndex +1) % plantList.size
+            showPlantData(currentPlantIndex)
         } else {
-            // Display default information or placeholders
             tempStat.text = "30°C"
             humdStat.text = "30%"
             lghtStat.text = "300 lux"
             description.text = "Tietojen lataus epäonnistui, näytetään epäaitoja tietoja"
             plantName.text = "Latausongelma"
-
             Picasso.get()
                 .load(R.drawable.icons8_plant_100)
                 .error(R.drawable.icons8_plant_100)
@@ -146,88 +151,94 @@ class FloraActivity : AppCompatActivity() {
         plantName.text = "${selectedPlant.name}"
 
         if (selectedPlant.image.isNotEmpty()) {
-             Picasso.get()
-                 .load(selectedPlant.image)
-                 .error(R.drawable.icons8_plant_100)
-                 .resize(300,300)
-                 .into(faunaPic)
+            Picasso.get()
+                .load(selectedPlant.image)
+                .error(R.drawable.icons8_plant_100)
+                .resize(300,300)
+                .into(faunaPic)
         } else {
             Picasso.get().load(R.drawable.icons8_plant_100)
                 .resize(300, 300)
                 .into(faunaPic)
         }
+    }
 
-        fun deletePlant(plantId: Int) {
-            val deleteUrl = "https://ixegw7rqi6g62jg22eijyxqnlm0zziwf.lambda-url.us-east-1.on.aws/"
+    private fun deletePlant(plantId: Int) {
+        val deleteUrl = "https://ixegw7rqi6g62jg22eijyxqnlm0zziwf.lambda-url.us-east-1.on.aws/"
 
-            val jsonBody = JSONObject().apply {
-                put("id", plantId.toString())
+        val jsonBody = JSONObject().apply {
+            put("id", plantId.toString())
+        }
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, deleteUrl, jsonBody,
+            { response ->
+                val result = response.getString("result")
+                if (result == "Plant deleted from database") {
+                    val deletedPlantIndex = plantList.indexOfFirst { it.id == plantId }
+                    if (deletedPlantIndex != -1) {
+                        plantList.removeAt(deletedPlantIndex)
+                        cycleToNextPlant()
+                        Toast.makeText(this, "Kukka poistettu palvelimelta", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, "Virhe poistaessa kasvia. Yritä myöhemmin uudelleen.", Toast.LENGTH_SHORT).show()
+                }
+            },
+            { error ->
+                error.printStackTrace()
+                Log.e("DeletePlant", "Error: ${error.networkResponse?.statusCode}, ${String(error.networkResponse?.data ?: ByteArray(0))}")
+            }
+        )
+
+        requestQueue.add(jsonObjectRequest)
+    }
+
+
+    private fun showDeleteConfirmationDialog(plantId: Int) {
+        val selectedPlant = plantList[currentPlantIndex]
+
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
+        val dialogTitle = dialogView.findViewById<TextView>(R.id.dialogTitle)
+        val dialogMessage = dialogView.findViewById<TextView>(R.id.dialogMessage)
+
+        dialogTitle.text = "Kasvinpoisto"
+        dialogMessage.text = "Haluatko poistaa kasvin: ${selectedPlant.name}?"
+
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setPositiveButton("Poista") { dialog, _ ->
+                deletePlant(plantId)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Palaa") { dialog, _ ->
+                dialog.dismiss()
             }
 
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.POST, deleteUrl, jsonBody,
-                { response ->
-                    val result = response.getString("result")
-                    if (result == "Plant deleted from database") {
-                        val deletedPlantIndex = plantList.indexOfFirst { it.id == plantId }
-                        if (deletedPlantIndex != -1) {
-                            plantList.removeAt(deletedPlantIndex)
-                            cycleToNextPlant()
-                            Toast.makeText(this, "Kukka poistettu palvelimelta", Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
-                        Toast.makeText(this, "Virhe poistaessa kasvia. Yritä myöhemmin uudelleen.", Toast.LENGTH_SHORT).show()
-                    }
-                },
-                { error ->
-                    error.printStackTrace()
-                    Log.e("DeletePlant", "Error: ${error.networkResponse?.statusCode}, ${String(error.networkResponse?.data ?: ByteArray(0))}")
-                }
-            )
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        // Customize the positive and negative buttons if needed
+        val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
 
-            requestQueue.add(jsonObjectRequest)
-        }
+        // Set background color
+        positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.brand1))
+        negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.brand1))
 
-        fun showDeleteConfirmationDialog() {
-            val selectedPlant = plantList[currentPlantIndex]
-
-            val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
-            val dialogTitle = dialogView.findViewById<TextView>(R.id.dialogTitle)
-            val dialogMessage = dialogView.findViewById<TextView>(R.id.dialogMessage)
-
-            dialogTitle.text = "Kasvinpoisto"
-            dialogMessage.text = "Haluatko poistaa kasvin: ${selectedPlant.name}?"
-
-            val dialogBuilder = AlertDialog.Builder(this)
-                .setView(dialogView)
-                .setPositiveButton("Poista") { dialog, _ ->
-                    deletePlant(selectedPlant.id)
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Palaa") { dialog, _ ->
-                    dialog.dismiss()
-                }
-
-            val dialog = dialogBuilder.create()
-            dialog.show()
-
-            // Customize the positive and negative buttons if needed
-            val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-
-            // Set background color
-            positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.brand1))
-            negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.brand1))
-
-            // Set text color
-            positiveButton.setTextColor(ContextCompat.getColor(this, R.color.brand2))
-            negativeButton.setTextColor(ContextCompat.getColor(this, R.color.brand2))
-        }
-
-        deletePlant.setOnClickListener {
-            showDeleteConfirmationDialog()
-        }
+        // Set text color
+        positiveButton.setTextColor(ContextCompat.getColor(this, R.color.brand2))
+        negativeButton.setTextColor(ContextCompat.getColor(this, R.color.brand2))
 
 
     }
+
 }
+
+
+//val layoutParams = LinearLayout.LayoutParams(
+//            LinearLayout.LayoutParams.MATCH_PARENT,
+//            LinearLayout.LayoutParams.WRAP_CONTENT
+//        )
+//        layoutParams.weight = 1.0f
+//        layoutParams.marginEnd = resources.getDimensionPixelSize(8)
+//on hold

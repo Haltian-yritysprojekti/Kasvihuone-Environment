@@ -22,7 +22,7 @@
         android:layout_height="140dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icons8_temperature_100" />
+        app:srcCompat="@drawable/icons8_humidity_100" />
 
     <TextView
         android:id="@+id/textView2"
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="48dp"
-        android:textSize="30sp"
+        android:text="Kosteuden kehitys"
         android:textColor="@color/brand2"
-        android:text="Lämpötilan kehitys"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/tempLogo"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

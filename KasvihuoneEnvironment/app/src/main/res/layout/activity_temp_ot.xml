@@ -35,4 +35,14 @@
         android:text="Lämpötilan kehitys"
         app:layout_constraintStart_toEndOf="@+id/tempLogo"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_margin="15dp"
+        android:visibility="gone"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underlining" />
 </androidx.constraintlayout.widget.ConstraintLayout>
