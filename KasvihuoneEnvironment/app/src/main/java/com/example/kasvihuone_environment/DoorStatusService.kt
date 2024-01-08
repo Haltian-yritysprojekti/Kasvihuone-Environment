@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 
 class DoorStatusService : Service() {
 
@@ -36,14 +35,14 @@ class DoorStatusService : Service() {
             // Check door status here and show notification if unlocked
             apiRequest.getDoorStatus(
                 onSuccess = { doorStatus ->
-                    if (doorStatus == 1) {
+                    if (doorStatus == 0) {
                         showNotification()
                     }
-                    handler.postDelayed(this@DoorStatusService.checkDoorStatusRunnable, 30 * 1000)
+                    handler.postDelayed(this@DoorStatusService.checkDoorStatusRunnable, 60 * 1000)
                 },
                 onError = {
                     // Handle network request failure
-                    handler.postDelayed(this@DoorStatusService.checkDoorStatusRunnable, 30 * 1000)
+                    handler.postDelayed(this@DoorStatusService.checkDoorStatusRunnable, 60 * 1000)
                 }
             )
         }
@@ -71,7 +70,7 @@ class DoorStatusService : Service() {
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Ovi-ilmoitus")
             .setContentText("Kasvihuoneen ovi on auki!")
-            .setSmallIcon(R.mipmap.khelogo_round) // Replace with your app's icon
+            .setSmallIcon(R.drawable.kasvihuone_environment_logo) // Replace with your app's icon
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
 
@@ -108,8 +107,7 @@ class ApiRequest(private val context: Context) {
             val jsonArray = JSONArray(response)
             if (jsonArray.length() > 0) {
                 // Assuming the "door" value is present in the first object of the array
-                val doorStatus = jsonArray.getJSONObject(0).optInt("door", 1)
-                return doorStatus
+                return jsonArray.getJSONObject(0).optInt("door", 1)
             }
         } catch (e: JSONException) {
             e.printStackTrace()

@@ -116,31 +116,48 @@ class PlantChange : AppCompatActivity() {
     private fun updateBackendData() {
         val currentPlant = plantList[currentPlantIndex]
 
+        // Logging request data
+        Log.d("UpdateBackendData", "Updating data for plant: ${currentPlant.name}")
+
         val url = "https://4mjqxutmvce4k3ff5z7jn2rfxi0houki.lambda-url.us-east-1.on.aws/"
         val requestBody = JSONObject().apply {
             put("id", currentPlant.id)
-            put("name", currentPlant.name)
+            put("name", editPlantName.text.toString())
             put("lght", editLight.text.toString())
             put("temp", editTemperature.text.toString())
             put("descp", editDescription.text.toString())
             put("humd", editHumidity.text.toString())
+            put("image", "")
+            put("fileName", "")
         }
 
         val request = JsonObjectRequest(
             Request.Method.PUT, url, requestBody,
             { response ->
                 try {
+                    // Logging response data
+                    Log.d("UpdateBackendData", "Response received: $response")
+
                     val result = response.getString("result")
                     Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
                 } catch (e: JSONException) {
+                    // Logging JSON parsing error
+                    Log.e("UpdateBackendData", "Error parsing JSON response: ${e.message}")
+
                     e.printStackTrace()
-                    Toast.makeText(this, "Virhe kasvin tietojen päivittämisessä.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Virhe kasvitietojen lähetyksessä.", Toast.LENGTH_SHORT).show()
                 }
             },
             { error ->
+                // Logging Volley error
+                Log.e("UpdateBackendData", "Volley Error: ${error.message}")
+
                 error.printStackTrace()
                 Toast.makeText(this, "Virhe kasvin tietojen päivittämisessä.", Toast.LENGTH_SHORT).show()
             })
+
+        // Logging the request being added to the queue
+        Log.d("UpdateBackendData", "Adding request to the queue")
 
         Volley.newRequestQueue(this).add(request)
     }

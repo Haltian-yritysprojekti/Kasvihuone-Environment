@@ -3,6 +3,7 @@ package com.example.kasvihuone_environment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -86,9 +87,10 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(object : Runnable {
             override fun run() {
                 fetchDataFromBackend()
-                handler.postDelayed(this, 5 * 60 * 1000) // 5 minutes of time
+                handler.postDelayed(this,  60 * 1000) // a minute of time
+                Log.d("Data Fetched", "UIdata fetched")
             }
-        }, 5 * 60 * 1000)
+        },   60 * 1000)
     }
 
     private fun fetchDataFromBackend() {

@@ -183,7 +183,7 @@ class HumdOT : AppCompatActivity() {
 
         // Configure the y-axis
         humdDataChart.axisLeft.axisMinimum = 0f
-        humdDataChart.axisLeft.axisMaximum = 35f
+        humdDataChart.axisLeft.axisMaximum = 45f
         humdDataChart.axisLeft.labelCount = 10
 
         // Configure the x-axis
