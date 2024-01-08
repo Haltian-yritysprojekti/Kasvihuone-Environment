@@ -83,3 +83,70 @@ Rest API kansiossa MQTT Client hakee sensorien datat, cloud funktiot jotka hakev
 ## Tekijä
 
 GitHub: https://github.com/RamM21
+
+------------------------------
+# Android-osio
+All icons used were made by Icons8
+
+## Tarvittavat asiat
+
+- Android Studio
+- Jotta puhelimeen voi asentaa sovellus, puhelimen on oltava debug-moodissa ja usb-yhteydessä tietokoneeseen. Sovellus asentuu kun se ajetaan Android Studion sisällä.
+- Sovelluksen asennuksen jälkeen sovellusta voi käyttää kuten normaalia sovellusta.
+
+## Teknologiat
+- Kotlin-kieli
+
+## Käytetyt android-kirjastot
+
+- volley
+- widget
+- androidx
+- Handler
+- java
+- Intent
+
+## Toiminta 
+- Sovellus käynnistyy päänäkymään, MainActivity, josta voidaan siirtyä kuuteen eri aktiviteettiin. Aktiviteetteja ovat FloraActivity, AddFlora, TempOT, HumdOT ja VisitorActivity. Aktiviteettiin PlantChange pääsee AddFloran sisältä. Taustalla toimii myös DoorStatusService, joka selvittää minuutin välein oven asentoa. Päänäkymän ovikuva muuttuu oven asennon mukaan. Minuutin välein päänäkymä päivittää itsensä.
+
+  <img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/6f1da9a6-5181-46f4-ad00-3a312306c529" width="270" height="585">
+  
+- Käyttäjän valitessa FloraActivityn, hän näkee seuraavan kuvan. Hän voi valita kasvien väliltä napeilla, tai siirtyä aktiviteettiin AddFlora tai poistaa nykyisen kukan punaisella ruksilla.
+
+  <img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/e3cfe2cd-191f-4a1c-a12a-ab6bb0e43b07" width="270" height="585">
+
+- Poistaessa kukan näet tämän ikkunan, voit joko palata aikaisempaan näkymään tai poistaa kukan.
+
+  <img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/aae51c6f-2a44-4688-837f-00e261be2d50" width="270" height="585">
+
+- Käyttäjän siirtyessä AddPlant aktiviteettiin, hän voi täyttää kentät jotta uusi kasvi voidaan lisätä tietokantaan.
+
+  <img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/194b7851-79b8-418c-829d-56566724e26a" width="270" height="585">
+  
+- AddPlant aktiviteetin sisältä voit siirtyä PlantChange aktiviteettiin, ja vaihtaa kasvitietoja.
+
+  <img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/249ffafb-e806-4557-848a-d5e8665a59f9" width="270" height="585">
+
+- TempOT, Lämpötilatiedot ilmoitettuna ajan funktiona. Ensimmäisessä kuvassa listataan päivät, jolloin on tullut lämpötiladataa. Jokainen päivä on klikattavissa.
+
+  <img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/7e7edfe4-5241-420d-99b4-baa9d2034dcf" width="270" height="585">
+
+- TempOT, Lämpötilatiedot klikkauksen jälkeen ilmoitettuna kuvaajalla. Palata voi palaa-napilla päivälistaukseen. Napilla poistutaan päänäkymään.
+
+<img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/6fbe4729-68df-4947-b48a-daa3c7a6f23d" width="270" height="585">
+
+- HumdOT, Kosteustiedot ilmoitettuna ajan funktiona. Ensimmäisessä kuvassa listataan päivät, jolloin on tullut kosteusdataa. Jokainen päivä on klikattavissa.
+
+<img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/b706756a-a167-4ffb-a5d1-8efe24f2c8e2" width="270" height="585">
+
+- HumdOT, Kosteustiedot klikkauksen jälkeen ilmoitettuna kuvaajalla. Palata voi palaa-napilla päivälistaukseen. Napilla poistutaan päänäkymään.
+
+<img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/db03f593-7e50-4b88-b501-781793781af5" width="270" height="585">
+
+- VisitorActivity, Listattuna käyntipäivät ja kävijämäärät. Napilla palataan MainActivity-näkymään.
+
+<img src="https://github.com/Haltian-yritysprojekti/Kasvihuone-Environment/assets/79058877/74f995e8-a59b-4e3a-904f-421fa5b912b8" width="270" height="585">
+
+## Tekijä
+
+GitHub: https://github.com/LassiTihinen
