@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Border Color -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/brand2" /> <!-- Set the desired border color -->
+
+    <!-- Background Color for the entire FrameLayout -->
+    <solid android:color="@color/brand1" /> <!-- Set the desired background color -->
+
+</shape>

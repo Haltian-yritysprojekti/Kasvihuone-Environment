@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand1"
+    tools:context=".VisitorActivity">
+
+  <ImageView
+      android:id="@+id/underlining"
+      android:layout_width="match_parent"
+      android:layout_height="108dp"
+      android:layout_marginTop="32dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/underlining"
+      tools:layout_editor_absoluteX="0dp" />
+
+  <ImageView
+      android:id="@+id/visitorLogo"
+      android:layout_width="wrap_content"
+      android:layout_height="140dp"
+      android:layout_marginStart="5dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/icons8_group_100" />
+
+  <TextView
+      android:id="@+id/topic"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="40dp"
+      android:text="Kasvihuoneen kävijä-\nseuranta"
+      android:textColor="@color/brand2"
+      android:textSize="30sp"
+      app:layout_constraintStart_toEndOf="@+id/visitorLogo"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <ImageView
+      android:id="@+id/backButton"
+      android:layout_width="75dp"
+      android:layout_height="75dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginBottom="16dp"
+      android:clickable="true"
+      android:focusable="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:srcCompat="@drawable/icons8_arrow_64" />
+
+  <ScrollView
+      android:id="@+id/scrollView"
+      android:layout_width="240dp"
+      android:layout_height="415dp"
+      android:layout_marginTop="30dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/underlining">
+
+    <LinearLayout
+        android:id="@+id/scrollViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+  </ScrollView>
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:textColor="@color/brand2"
+      android:text="YYYY-MM-DD"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/underlining" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

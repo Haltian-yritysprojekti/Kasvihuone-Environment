@@ -1,0 +1,16 @@
+
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color='@color/brand2' /> <!-- Set the color to white -->
+        </shape>
+    </item>
+
+    <item android:bottom="16dp"> <!-- Adjust the bottom margin as needed -->
+        <shape android:shape="rectangle">
+            <solid android:color="@color/brand1" /> <!-- Set the color at the bottom -->
+        </shape>
+    </item>
+
+</layer-list>

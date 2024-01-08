@@ -1,0 +1,32 @@
+<!-- res/drawable/cross_drawable.xml -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background rectangle -->
+    <item android:drawable="@android:color/white"/>
+
+    <!-- Horizontal line -->
+    <item>
+        <shape android:shape="line">
+            <stroke
+                android:width="2dp"
+                android:color="@color/brand2"/>
+        </shape>
+    </item>
+
+    <!-- Vertical line -->
+    <item
+        android:top="0dp"
+        android:bottom="0dp"
+        android:left="-1dp"
+        android:right="-1dp">
+        <rotate
+            android:fromDegrees="90">
+            <shape android:shape="line">
+                <stroke
+                    android:width="2dp"
+                    android:color="@color/brand2"/>
+            </shape>
+        </rotate>
+    </item>
+</layer-list>
