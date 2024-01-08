@@ -1,11 +1,14 @@
 package com.example.kasvihuone_environment
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.GONE
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -63,18 +66,18 @@ class FloraActivity : AppCompatActivity() {
 
         val backButton : ImageView = findViewById(R.id.backButton)
         val addFlora : ImageView = findViewById(R.id.iv_AddFlora)
-        val cycleButton : Button = findViewById(R.id.cyclePlants)
+        val cycleLess : ImageView = findViewById(R.id.cycleLess)
+        val cycleMore : ImageView = findViewById(R.id.cycleMore)
 
-        cycleButton.setOnClickListener {
-            cycleToNextPlant()
-        }
+        cycleLess.visibility = GONE
+        cycleLess.scaleX = -1f
+
+
 
         deletePlant.setOnClickListener {
             val selectedPlant = plantList[currentPlantIndex]
             showDeleteConfirmationDialog(selectedPlant.id)
         }
-
-
 
         backButton.setOnClickListener{
             val mainActivityIntent = Intent(this, MainActivity::class.java)
@@ -86,7 +89,39 @@ class FloraActivity : AppCompatActivity() {
             startActivity(addFloraIntent)
             finish()
         }
+
         fetchData()
+
+        fun updateButtonVisibility(){
+            if (currentPlantIndex == 0) {
+                // If at the lowest id, hide cycleLess
+                cycleLess.visibility = View.GONE
+            } else {
+                cycleLess.visibility = View.VISIBLE
+            }
+
+            if (currentPlantIndex == plantList.size - 1) {
+                // If at the highest id, hide cycleMore
+                cycleMore.visibility = View.GONE
+            } else {
+                cycleMore.visibility = View.VISIBLE
+            }
+        }
+
+        cycleLess.setOnClickListener{
+            if (currentPlantIndex > 0){
+                currentPlantIndex--
+                showPlantData(currentPlantIndex)
+                updateButtonVisibility()
+            }
+        }
+
+        cycleMore.setOnClickListener{
+            if(currentPlantIndex < plantList.size - 1)
+                currentPlantIndex++
+            showPlantData(currentPlantIndex)
+            updateButtonVisibility()
+        }
 
     }
     private fun fetchData(){
@@ -122,6 +157,8 @@ class FloraActivity : AppCompatActivity() {
 
         plantList.sortBy { it.id }
     }
+
+
 
     private fun cycleToNextPlant() {
         if (plantList.isNotEmpty()) {
@@ -221,6 +258,8 @@ class FloraActivity : AppCompatActivity() {
         val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
         val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
 
+
+
         // Set background color
         positiveButton.setBackgroundColor(ContextCompat.getColor(this, R.color.brand1))
         negativeButton.setBackgroundColor(ContextCompat.getColor(this, R.color.brand1))
@@ -234,11 +273,3 @@ class FloraActivity : AppCompatActivity() {
 
 }
 
-
-//val layoutParams = LinearLayout.LayoutParams(
-//            LinearLayout.LayoutParams.MATCH_PARENT,
-//            LinearLayout.LayoutParams.WRAP_CONTENT
-//        )
-//        layoutParams.weight = 1.0f
-//        layoutParams.marginEnd = resources.getDimensionPixelSize(8)
-//on hold

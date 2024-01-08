@@ -50,8 +50,8 @@
         app:srcCompat="@drawable/icons8_arrow_64" />
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="360dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,58 +62,62 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_margin="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/editPlantName"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:inputType="textPersonName"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
                     android:hint="Lisää kasvin nimi"
+                    android:inputType="textPersonName"
                     android:textColor="@color/brand2"
-                    android:textColorHint="@color/brand1"/>
+                    android:textColorHint="@color/brand1" />
 
                 <EditText
                     android:id="@+id/editHumidity"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää optimikosteus"
                     android:inputType="number"
                     android:textColor="@color/brand2"
-                    android:textColorHint="@color/brand1"
-                    android:hint="Lisää optimikosteus" />
+                    android:textColorHint="@color/brand1" />
 
                 <EditText
                     android:id="@+id/editTemperature"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää optimilämpötila"
                     android:inputType="number"
                     android:textColor="@color/brand2"
-                    android:textColorHint="@color/brand1"
-                    android:hint="Lisää optimilämpötila" />
+                    android:textColorHint="@color/brand1" />
 
                 <EditText
                     android:id="@+id/editLight"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää valotaso"
                     android:inputType="number"
                     android:textColor="@color/brand2"
-                    android:textColorHint="@color/brand1"
-                    android:hint="Lisää valotaso" />
+                    android:textColorHint="@color/brand1" />
 
                 <EditText
                     android:id="@+id/editDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää kuvaus"
                     android:inputType="textLongMessage"
                     android:textColor="@color/brand2"
-                    android:textColorHint="@color/brand1"
-                    android:hint="Lisää kuvaus" />
+                    android:textColorHint="@color/brand1" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

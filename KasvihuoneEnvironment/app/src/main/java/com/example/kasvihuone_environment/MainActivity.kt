@@ -3,6 +3,7 @@ package com.example.kasvihuone_environment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTemperature: TextView
     private lateinit var tvHumidity: TextView
     private lateinit var tvLight: TextView
+    private lateinit var doorState: TextView
     private val handler = Handler()
     data class BackendData(
         val door: Int,
@@ -35,11 +37,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
+        doorState = findViewById(R.id.doorState_tv)
         val clickableLayout = findViewById<RelativeLayout>(R.id.lo_click1)
         val clickableLayout2 = findViewById<RelativeLayout>(R.id.lo_click2)
         val clickableLayout3 = findViewById<RelativeLayout>(R.id.lo_click3)
         val clickableLayout4 = findViewById<RelativeLayout>(R.id.lo_click4)
-        val clickableLayout5 = findViewById<RelativeLayout>(R.id.lo_click5)
+        val clickableLayout6 = findViewById<RelativeLayout>(R.id.lo_click6)
         tvLight = findViewById(R.id.tv_lux)
         tvTemperature = findViewById(R.id.tv_temperature)
         tvHumidity = findViewById(R.id.tv_humidity)
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         requestQueue = Volley.newRequestQueue(this)
 
         fetchDataFromBackendPeriodically()
+        startService(Intent(this, DoorStatusService::class.java))
 
         clickableLayout.setOnClickListener{
             val floraIntent = Intent(this, FloraActivity::class.java)
@@ -70,8 +74,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(humdIntent)
             finish()
         }
-        clickableLayout5.setOnClickListener{
-
+        clickableLayout6.setOnClickListener{
+            val visitorIntent = Intent(this, VisitorActivity::class.java)
+            startActivity(visitorIntent)
+            finish()
         }
     }
 
@@ -97,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                 // Update UI with the first item in the response
                 if (backendDataList.isNotEmpty()) {
                     val firstItem = backendDataList[0]
-                    updateUI(firstItem.temp, firstItem.humd, firstItem.lght)
+                    updateUI(firstItem.temp, firstItem.humd, firstItem.lght, firstItem.door)
                 }
             },
             { error ->
@@ -108,8 +114,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseBackendData(jsonArray: JSONArray): List<BackendData> {
-        backendDataList.clear() // Clear the previous data before parsing the new data
-
+        backendDataList.clear()
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
             val backendData = BackendData(
@@ -124,11 +129,21 @@ class MainActivity : AppCompatActivity() {
         }
         return backendDataList
     }
-
-    private fun updateUI(temperature: Int, humidity: Int, lght: Int) {
+    private fun updateUI(temperature: Int, humidity: Int, lght: Int, door: Int) {
         tvTemperature.text = "$temperature°C"
         tvHumidity.text = "$humidity%"
         tvLight.text = "$lght lux"
+
+        val doorIv: ImageView = findViewById(R.id.door_iv)
+        val doorStateTv : TextView = findViewById(R.id.doorState_tv)
+
+        if (door == 1 ){
+            doorIv.setImageResource(R.drawable.icons8_door_100)
+            doorStateTv.text = "Ovi on kiinni."
+        } else {
+            doorIv.setImageResource(R.drawable.icons8_dooropen_100)
+            doorStateTv.text = "Ovi on auki!"
+        }
     }
 
 
@@ -152,5 +167,4 @@ class MainActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-    //Testipusku
 }

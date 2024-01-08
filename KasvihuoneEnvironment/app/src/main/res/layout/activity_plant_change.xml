@@ -83,5 +83,106 @@
         app:layout_constraintTop_toBottomOf="@+id/underlining"
         tools:srcCompat="@drawable/twotone_label_important_24" />
 
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icons8_arrow_64" />
+
+    <ImageView
+        android:id="@+id/changePlant"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icons8_refresh_100" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displayName">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editPlantName"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää kasvin nimi"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/brand2"
+                    android:textColorHint="@color/brand1" />
+
+                <EditText
+                    android:id="@+id/editHumidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää optimikosteus"
+                    android:inputType="number"
+                    android:textColor="@color/brand2"
+                    android:textColorHint="@color/brand1" />
+
+                <EditText
+                    android:id="@+id/editTemperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää optimilämpötila"
+                    android:inputType="number"
+                    android:textColor="@color/brand2"
+                    android:textColorHint="@color/brand1" />
+
+                <EditText
+                    android:id="@+id/editLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää valotaso"
+                    android:inputType="number"
+                    android:textColor="@color/brand2"
+                    android:textColorHint="@color/brand1" />
+
+                <EditText
+                    android:id="@+id/editDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:hint="Lisää kuvaus"
+                    android:inputType="textLongMessage"
+                    android:textColor="@color/brand2"
+                    android:textColorHint="@color/brand1" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
